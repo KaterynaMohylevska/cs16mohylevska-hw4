@@ -22,6 +22,16 @@ public class PrefixMatchesITTest {
     }
 
     @Test
+    public void testContainWord(){
+        assertEquals(true,pm.contains("abc"));
+    }
+
+    @Test
+    public void testWordsSize(){
+        assertEquals(5,pm.size());
+    }
+
+    @Test
     public void testWordsWithPrefix_String() {
         String pref = "ab";
 
