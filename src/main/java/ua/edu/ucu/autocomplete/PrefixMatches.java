@@ -20,7 +20,7 @@ public class PrefixMatches {
             String[] str = s.split(" ");
             for (String word : str) {
                 if (word.length() > 2) {
-                    trie.add(new Tuple(word,word.length()));
+                    trie.add(new Tuple(word, word.length()));
                     count++;
                 }
             }
@@ -41,11 +41,11 @@ public class PrefixMatches {
     }
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {
-        if (pref.length() >= 2){
+        if (pref.length() >= 2) {
             List<String> lst = new ArrayList<>();
             Iterable<String> wordsWithPref = wordsWithPrefix(pref);
-            for (String s : wordsWithPref){
-                if (s.length() < pref.length() + k){
+            for (String s : wordsWithPref) {
+                if (s.length() < pref.length() + k) {
                     lst.add(s);
                 }
             }

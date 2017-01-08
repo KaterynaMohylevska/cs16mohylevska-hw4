@@ -14,9 +14,10 @@ public class RWayTrie implements Trie {
         private int counter = 0;
         private Node parent;
 
-        public Node(Object value){
+        public Node(Object value) {
             this.value = value;
         }
+
         public boolean containsInNext(Object letter) {
             for (int i = 0; i < this.counter; i++) {
                 if (this.next[i].value == letter) {
@@ -37,7 +38,7 @@ public class RWayTrie implements Trie {
             throw new Error();
         }
 
-        public void addNext(Node letter){
+        public void addNext(Node letter) {
             this.next[this.counter] = letter;
             this.next[this.counter].parent = this;
             counter++;
@@ -52,15 +53,15 @@ public class RWayTrie implements Trie {
         int len = t.weight;
         char[] word = t.term.toCharArray();
         int start = 0;
-        for (int i = 0; i < len; i++){
-            if (!letter.containsInNext(word[i])){
+        for (int i = 0; i < len; i++) {
+            if (!letter.containsInNext(word[i])) {
                 start = i;
                 break;
             }
             letter = letter.findInNext(word[i]);
         }
 
-        for (int i = start; i < len; i++){
+        for (int i = start; i < len; i++) {
             Node l = new Node(word[i]);
             letter.addNext(l);
             letter = l;
@@ -73,8 +74,8 @@ public class RWayTrie implements Trie {
     public boolean contains(String word) {
         char[] wordArray = word.toCharArray();
         Node letter = this.root;
-        for (int i = 0; i < wordArray.length; i++){
-            if (!letter.containsInNext(wordArray[i])){
+        for (int i = 0; i < wordArray.length; i++) {
+            if (!letter.containsInNext(wordArray[i])) {
                 return false;
             }
             letter = letter.findInNext(wordArray[i]);
@@ -84,26 +85,25 @@ public class RWayTrie implements Trie {
 
     @Override
     public boolean delete(String word) {
-        if (this.contains(word)){
+        if (this.contains(word)) {
             return true;
         }
         return false;
     }
 
-    public String iteration(Node[] next){
+    public String iteration(Node[] next) {
         String allWords = "";
-        for (int i = 0; i < next[0].parent.counter; i++){
-            if (next[i].value == "#"){
+        for (int i = 0; i < next[0].parent.counter; i++) {
+            if (next[i].value == "#") {
                 String str = "";
                 Node letter = next[i];
-                while (letter.value != null){
+                while (letter.value != null) {
                     str += letter.value;
                     letter = letter.parent;
                 }
                 String word = new StringBuffer(str).reverse().toString();
                 allWords += word;
-            }
-            else {
+            } else {
                 allWords += iteration(next[i].next);
             }
         }
@@ -116,12 +116,11 @@ public class RWayTrie implements Trie {
         String words = iteration(this.root.next);
         char[] wordArray = words.toCharArray();
         String word = "";
-        for (int i = 0; i < wordArray.length; i++){
-            if (wordArray[i] == '#'){
+        for (int i = 0; i < wordArray.length; i++) {
+            if (wordArray[i] == '#') {
                 dict.add(word);
                 word = "";
-            }
-            else {
+            } else {
                 word += wordArray[i];
             }
         }
